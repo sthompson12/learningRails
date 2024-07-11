@@ -7,6 +7,11 @@
 # Visit https://pragprog.com/titles/rails7 for more book information.
 #---
 class Product < ApplicationRecord
+  has_many :line_items
+  before_destroy :ensure_not_referenced_by_any_line_item
+
+
+
   validates :title, :description, :image_url, presence: true
 #
   validates :title, uniqueness: true
@@ -17,5 +22,14 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0.01, message: ' must be at least 1 cent!'}
 
   validates :title, length: { minimum: 10}
+
+  private
+    #ensures no line items referencing this product
+    def ensure_not_referenced_by_any_line_item
+      unless line_items.empty?
+        errors.add(:base, 'Line Item Present')
+        throw :abort
+      end
+    end
 
 end

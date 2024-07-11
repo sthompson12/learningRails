@@ -22,7 +22,7 @@ Product.create!(title: 'Docker for Rails Developers',
       deploying your app in the cloud into a baby step.
       </p>},
   image_url: 'ridocker.jpg',
-  price: 19.95)
+  price: 1900.95)
 # . . .
 Product.create!(title: 'Design and Build Great Web APIs',
   description:
